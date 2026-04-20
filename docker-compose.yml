@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  db:
+    container_name: postgres_database
+    image: postgres:16
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=val123456
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=example_app
+    ports:
+      - "5432:5432"   # 👈 AGREGADO (necesario para acceso estable)
+    networks:              # 👈 AGREGADO
+      - app_network
+
+networks:                 # 👈 AGREGADO (si no existía)
+  app_network:
+    driver: bridge
